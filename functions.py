@@ -58,11 +58,4 @@ def class_name_format(a):
     return str(ll)
 
 
-def click_home():
-    homebutton = driver.find_element_by_class_name("jss10").find_elements_by_xpath(
-        "//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-colorInherit MuiButton-textSizeLarge MuiButton-sizeLarge']")
-    homebutton[0].find_element_by_class_name("MuiButton-label").click()
-    return
-
-
 ''''''

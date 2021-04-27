@@ -2,19 +2,20 @@ from re import sub
 from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from functions import time_difference, retun_day, zero_time_clock, format_time, class_start_time_format, class_end_time_format, class_name_format, click_home
-from tkinter import *
+from selenium.common.exceptions import StaleElementReferenceException
+from functions import time_difference, retun_day, zero_time_clock, format_time, class_start_time_format, class_end_time_format, class_name_format
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import os
 
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, 'driver\chromedriver.exe')
 
 # GET ID PASSWORD AND PATH TO DRIVER AND STORE IT IN A TXT FILE
 
-driver = webdriver.Chrome(
-    executable_path=r"D:\Programs\PYTHON\SOURCE\ACHARYA CLASS V2\venv\chromedriver.exe")
-driver.fullscreen_window()
+driver = webdriver.Chrome(executable_path=filename)
 driver.get("https://alive.university/")
 
 
@@ -55,9 +56,6 @@ for i in range(number_of_classes):
     full_subject_name = class_panel_list[i].find_element_by_xpath(
         class_names_path).get_attribute("innerHTML")
 
-    join_button = class_panel_list[i].find_element_by_xpath(
-        join_button_path_1).find_element_by_xpath(join_button_path_2)
-
     # START TIME LIST
     a = class_start_time_format(full_time)
     class_start_time.append(a)
@@ -70,8 +68,6 @@ for i in range(number_of_classes):
     c = class_name_format(full_subject_name)
     subject_name.append(c)
 
-    # JOIN BUTTON LIST
-    join_button_list.append(join_button)
 
 # SEQUENCE OF CLASSES
 
@@ -86,8 +82,7 @@ for i in range(number_of_classes):
                                                   1] = class_panel_list[j + 1], class_panel_list[j]
             subject_name[j], subject_name[j +
                                           1] = subject_name[j + 1], subject_name[j]
-            join_button_list[j], join_button_list[j +
-                                                  1] = join_button_list[j + 1], join_button_list[j]
+
 
 # DELETE DIPLOMA CLASS AND -1 FROM NUMBER OF CLASSES
 
@@ -105,14 +100,8 @@ for elem in range(element_in_del):
     del class_end_time[index]
     del join_button_list[index]
 
-    # MAKE GUI FOR ALL THE CLASSES
-
-# print(subject_name)
-# print(class_start_time)
-# print(class_end_time)
 
 wait = WebDriverWait(driver, 10)
-running = True
 zero_time = zero_time_clock()
 
 for i in range(number_of_classes):
@@ -124,10 +113,19 @@ for i in range(number_of_classes):
         continue
     sleeptime = class_duration.total_seconds()+300
 
+    # join button finding
+    re_class_list = driver.find_elements_by_xpath(class_panels_path)
+    for j in range(len(re_class_list)):
+        cur_subject_name = class_name_format(re_class_list[j].find_element_by_xpath(
+            class_names_path).get_attribute("innerHTML"))
+        if subject_name[i] == cur_subject_name:
+            join_button = re_class_list[j].find_element_by_xpath(
+                join_button_path_1).find_element_by_xpath(join_button_path_2)
+
     # JOINING CLASS
-    while running:
+    while time_difference(class_end_time[i]) > zero_time:
         pop_up_message = ""
-        join_button_list[i].click()
+        join_button.click()
         try:
             pop_up = wait.until(EC.presence_of_element_located(
                 (By.CLASS_NAME, "MuiSnackbarContent-message")))
@@ -139,25 +137,12 @@ for i in range(number_of_classes):
         if pop_up_message == "Session has not started!":
             print("class join failed try again in 600 seconds")
             sleep(600)
-            if time_difference(class_end_time[i]) < zero_time:
-                break
         else:
             sleep(10)
-            # click on X button
-            #driver.find_elements_by_xpath("//button[@class='md--Q7ug4 buttonWrapper--x8uow dismiss--1zWwpv']").click()
             # check for polling option
-            sleep(sleeptime+600)
-            click_home()
+            sleep(sleeptime+300)
+            driver.back()
             break
 
 driver.close()
 # END
-
-
-# <button aria-label="Listen only" aria-disabled="false" class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK">
-# <span class="button--Z2dosza jumbo--Z12Rgj4 default--Z19H5du circle--Z2c8umk">
-# <i class="icon--2q1XXw icon-bbb-listen">
-# </i>
-# </span>
-# <span class="label--Z12LMR3">Listen only</span>
-# </button>
