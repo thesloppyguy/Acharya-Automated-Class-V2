@@ -15,6 +15,7 @@ def cred():
         def get_entry_fields():
             data.append(e1.get())
             data.append(e2.get())
+            window.quit()
 
         window = tk.Tk()
         window.geometry("500x500")
