@@ -1,6 +1,56 @@
 from datetime import timedelta, datetime, date
 from calendar import day_name
 from re import sub
+import os.path
+from os import path
+import tkinter as tk
+
+read = ''
+data = []
+
+
+def cred():
+    def get_data():
+
+        def get_entry_fields():
+            data.append(e1.get())
+            data.append(e2.get())
+
+        window = tk.Tk()
+        window.geometry("500x500")
+        window.title("Acharya Automated Attendence - Sahil")
+        # window.iconbitmap('#')
+
+        # Label1 = tk.Label(window, text="Welcome to Acharya Automated Attendence",
+        #                   fg='blue', font=("arial", 16, "bold"), relief='solid')
+
+        # Label1.grid(row=0)
+
+        tk.Label(window, text="Username").grid(row=1)
+        tk.Label(window, text="Password").grid(row=2)
+
+        e1 = tk.Entry(window)
+        e2 = tk.Entry(window)
+
+        e1.grid(row=1, column=1)
+        e2.grid(row=2, column=1)
+
+        tk.Button(window, text='Quit', command=window.quit).grid(
+            row=3, column=0, sticky=tk.W, pady=4)
+        tk.Button(window, text='Submit', command=get_entry_fields).grid(
+            row=3, column=1, sticky=tk.W, pady=4)
+
+        window.mainloop()
+
+    if not path.exists("cred.txt"):
+        my_file = open('cred.txt', 'w')
+        get_data()
+        my_file.write(data)
+
+    my_file = open('cred.txt', 'r')
+    read = my_file.readline()
+    my_file.close()
+    return read
 
 
 def time_difference(giventime):

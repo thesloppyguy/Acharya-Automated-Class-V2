@@ -3,7 +3,8 @@ from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-from functions import time_difference, retun_day, zero_time_clock, format_time, class_start_time_format, class_end_time_format, class_name_format
+from functions import time_difference, retun_day, zero_time_clock, format_time, class_start_time_format, class_end_time_format, class_name_format, cred
+#from functools import *
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,15 +15,18 @@ dirname = os.path.dirname(__file__)
 filename = os.path.join(dirname, 'driver\chromedriver.exe')
 
 # GET ID PASSWORD AND PATH TO DRIVER AND STORE IT IN A TXT FILE
+login_info = cred()
+AUID = login_info[:12]
+PASSWORD = login_info[12:]
+print(AUID, PASSWORD)
 
 driver = webdriver.Chrome(executable_path=filename)
 driver.get("https://alive.university/")
 
-
 ID = driver.find_element_by_name("user_email")
-ID.send_keys("AIT19BECS080")
+ID.send_keys(AUID)
 PASS = driver.find_element_by_name("user_password")
-PASS.send_keys("Sahil@123")
+PASS.send_keys(PASSWORD)
 
 driver.find_element_by_class_name("MuiButton-label").click()
 
