@@ -3,8 +3,7 @@ from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-from functions import time_difference, retun_day, zero_time_clock, format_time, class_start_time_format, class_end_time_format, class_name_format, cred
-#from functools import *
+from functions import *
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -18,7 +17,6 @@ filename = os.path.join(dirname, 'driver\chromedriver.exe')
 login_info = cred()
 AUID = login_info[:12]
 PASSWORD = login_info[12:]
-print(AUID, PASSWORD)
 
 driver = webdriver.Chrome(executable_path=filename)
 driver.get("https://alive.university/")
@@ -120,9 +118,14 @@ for i in range(number_of_classes):
     # join button finding
     re_class_list = driver.find_elements_by_xpath(class_panels_path)
     for j in range(len(re_class_list)):
+
         cur_subject_name = class_name_format(re_class_list[j].find_element_by_xpath(
             class_names_path).get_attribute("innerHTML"))
-        if subject_name[i] == cur_subject_name:
+
+        cur_subject_time = class_start_time_format(
+            re_class_list[j].find_element_by_xpath(class_times_path).get_attribute("innerHTML"))
+
+        if subject_name[i] == cur_subject_name and class_start_time[i] == cur_subject_time:
             join_button = re_class_list[j].find_element_by_xpath(
                 join_button_path_1).find_element_by_xpath(join_button_path_2)
 
