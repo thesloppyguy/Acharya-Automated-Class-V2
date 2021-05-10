@@ -46,7 +46,7 @@ def cred():
     if not path.exists("cred.txt"):
         my_file = open('cred.txt', 'w')
         get_data()
-        my_file.write(data)
+        my_file.writelines(data)
 
     my_file = open('cred.txt', 'r')
     read = my_file.readline()
