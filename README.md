@@ -8,5 +8,4 @@ As well as a automated polling function which teachers might enable automaticall
 
 
 TODO 
-1. Make UI Better
-2. Make EXE file
+1. Make EXE file
