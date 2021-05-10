@@ -15,17 +15,16 @@ def cred():
         def get_entry_fields():
             data.append(e1.get())
             data.append(e2.get())
-            window.quit()
+            window.destroy()
 
         window = tk.Tk()
-        window.geometry("500x500")
+        window.geometry("420x100")
         window.title("Acharya Automated Attendence - Sahil")
-        # window.iconbitmap('#')
 
-        # Label1 = tk.Label(window, text="Welcome to Acharya Automated Attendence",
-        #                   fg='blue', font=("arial", 16, "bold"), relief='solid')
-
-        # Label1.grid(row=0)
+        tk.Label(window, text="This program is not idiot proof so ").grid(
+            row=0, column=0)
+        tk.Label(window, text="please write and submit everything properly").grid(
+            row=0, column=1)
 
         tk.Label(window, text="Username").grid(row=1)
         tk.Label(window, text="Password").grid(row=2)
@@ -36,10 +35,10 @@ def cred():
         e1.grid(row=1, column=1)
         e2.grid(row=2, column=1)
 
-        tk.Button(window, text='Quit', command=window.quit).grid(
-            row=3, column=0, sticky=tk.W, pady=4)
+        tk.Button(window, text='Quit', command=window.destroy).grid(
+            row=5, column=0, pady=4)
         tk.Button(window, text='Submit', command=get_entry_fields).grid(
-            row=3, column=1, sticky=tk.W, pady=4)
+            row=5, column=1, pady=4)
 
         window.mainloop()
 
