@@ -1,7 +1,6 @@
 from datetime import timedelta, datetime, date
 from calendar import day_name
 from re import sub
-import os.path
 from os import path
 import tkinter as tk
 

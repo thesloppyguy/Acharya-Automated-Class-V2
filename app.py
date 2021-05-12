@@ -113,7 +113,7 @@ for i in range(number_of_classes):
     class_duration = time_difference(class_end_time[i])
     if class_duration <= zero_time:
         continue
-    sleeptime = class_duration.total_seconds()+300
+    sleeptime = class_duration.total_seconds()
 
     # join button finding
     re_class_list = driver.find_elements_by_xpath(class_panels_path)
@@ -146,8 +146,7 @@ for i in range(number_of_classes):
             sleep(600)
         else:
             sleep(10)
-            # check for polling option
-            sleep(sleeptime+300)
+            sleep(sleeptime)
             driver.back()
             break
 
