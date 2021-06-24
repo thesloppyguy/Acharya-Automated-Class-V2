@@ -3,7 +3,7 @@ from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-from functions import *
+from driver.functions import *
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -150,5 +150,11 @@ for i in range(number_of_classes):
             driver.back()
             break
 
+class_start_time.clear()
+class_end_time.clear()
+subject_name.clear()
+join_button_list.clear()
+delete_list.clear()
 driver.close()
+
 # END
