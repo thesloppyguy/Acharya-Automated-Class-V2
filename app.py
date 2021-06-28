@@ -9,6 +9,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import os
+import logging
+
+logging.basicConfig(filename='Progress.log', format='%(asctime)s %(levelname)-8s %(message)s',
+                    encoding='utf-8', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
+
+logging.info('NEW DAY')
 
 dirname = os.path.dirname(__file__)
 filename = os.path.join(dirname, 'driver\chromedriver.exe')
@@ -32,9 +38,8 @@ driver.find_element_by_class_name("MuiButton-label").click()
 class_panels_path = "//div[@class='MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded']"
 class_times_path = ".//p[@class='MuiTypography-root mb-1 MuiTypography-body2 MuiTypography-colorTextSecondary']"
 class_names_path = ".//h2[@class='MuiTypography-root MuiTypography-h5']"
-join_button_path_1 = ".//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-textSizeLarge MuiButton-sizeLarge']"
+join_button_path_1 = ".//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-textSizeSmall MuiButton-sizeSmall']"
 join_button_path_2 = ".//span[@class='MuiButton-label']"
-
 
 # PERIOD TIME
 sleep(10)
@@ -108,6 +113,8 @@ zero_time = zero_time_clock()
 
 for i in range(number_of_classes):
 
+    logging.info("Current Class"+str(subject_name[i]))
+
     sleep(10)
 
     class_duration = time_difference(class_end_time[i])
@@ -142,12 +149,14 @@ for i in range(number_of_classes):
             pass
 
         if pop_up_message == "Session has not started!":
-            print("class join failed try again in 600 seconds")
+            logging.info('Class Joining Failed!! Trying again in 600 seconds')
             sleep(600)
         else:
+            logging.info('Class Joined')
             sleep(10)
             sleep(sleeptime)
             driver.back()
+            logging.info('Class Left')
             break
 
 class_start_time.clear()
