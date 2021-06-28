@@ -41,12 +41,12 @@ def cred():
 
         window.mainloop()
 
-    if not path.exists("cred.txt"):
-        my_file = open('cred.txt', 'w')
+    if not path.exists("extra\cred.txt"):
+        my_file = open('extra\cred.txt', 'w')
         get_data()
         my_file.writelines(data)
 
-    my_file = open('cred.txt', 'r')
+    my_file = open('extra\cred.txt', 'r')
     read = my_file.readline()
     my_file.close()
     return read

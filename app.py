@@ -3,7 +3,7 @@ from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-from driver.functions import *
+from extra.functions import *
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,13 +11,13 @@ from selenium.webdriver.common.by import By
 import os
 import logging
 
-logging.basicConfig(filename='Progress.log', format='%(asctime)s %(levelname)-8s %(message)s',
+logging.basicConfig(filename='extra\Progress.log', format='%(asctime)s %(levelname)-8s %(message)s',
                     encoding='utf-8', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
 
 logging.info('NEW DAY')
 
 dirname = os.path.dirname(__file__)
-filename = os.path.join(dirname, 'driver\chromedriver.exe')
+filename = os.path.join(dirname, 'extra\chromedriver.exe')
 
 # GET ID PASSWORD AND PATH TO DRIVER AND STORE IT IN A TXT FILE
 login_info = cred()
