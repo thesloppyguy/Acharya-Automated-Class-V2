@@ -165,5 +165,5 @@ subject_name.clear()
 join_button_list.clear()
 delete_list.clear()
 driver.close()
-
+logging.info("END DAY")
 # END
