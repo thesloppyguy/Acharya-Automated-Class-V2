@@ -6,6 +6,3 @@ This program enables you to attend classes without actually being there.
 Currently i am working on the UI and EXE file for ease of access for any user in the future.
 As well as a automated polling function which teachers might enable automatically to check awareness of the student..
 
-
-TODO 
-1. Make EXE file
