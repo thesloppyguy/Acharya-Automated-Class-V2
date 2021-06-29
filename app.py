@@ -10,14 +10,22 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import os
 import logging
+import platform
 
 logging.basicConfig(filename='extra\Progress.log', format='%(asctime)s %(levelname)-8s %(message)s',
                     encoding='utf-8', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
 
 logging.info('NEW DAY')
 
+platform_name = str(platform.system())
 dirname = os.path.dirname(__file__)
-filename = os.path.join(dirname, 'extra\chromedriver.exe')
+
+# CROSS OS INTIGRATION PROVIDED SAME VERSION OF CHORME
+if platform_name == 'Windows':
+    filename = os.path.join(dirname, 'extra\chromedriver.exe')
+else:
+    filename = os.path.join(dirname, 'extra\chromedriver')
+
 
 # GET ID PASSWORD AND PATH TO DRIVER AND STORE IT IN A TXT FILE
 login_info = cred()
